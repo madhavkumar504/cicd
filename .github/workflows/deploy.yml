@@ -24,6 +24,6 @@ jobs:
         IdentityFile ~/.ssh/deploy_key
         StrictHostKeyChecking no" > ~/.ssh/config
 
-    - name: Deploy to EC2 with rsync
+    - name: Deploy to EC2
       run: |
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key" --exclude '.git/*' --exclude 'node_modules/*' ./ ec2-user@3.90.183.35:/var/www/madhav.ready2pay.in/cicd/
+        rsync -avz --exclude '.git/*' --exclude 'node_modules/*' ./ ec2-user@3.90.183.35:/var/www/madhav.ready2pay.in/cicd/
