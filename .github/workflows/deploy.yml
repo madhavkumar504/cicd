@@ -1,0 +1,29 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - master  # or your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        echo "Host ec2-instance
+        HostName 3.90.183.35
+        User ec2-user
+        IdentityFile ~/.ssh/deploy_key
+        StrictHostKeyChecking no" > ~/.ssh/config
+
+    - name: Deploy to EC2
+      run: |
+        rsync -avz --exclude '.git/*' --exclude 'node_modules/*' ./ ec2-user@3.90.183.35:/var/www/madhav.ready2pay.in/cicd/
