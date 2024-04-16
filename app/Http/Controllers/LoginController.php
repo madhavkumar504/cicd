@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    //this is for testing
     public function login(Request $request){
         $username = $request->username;
-        
+
         $password = $request->password;
 
         $user = new User();
