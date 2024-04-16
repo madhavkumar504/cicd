@@ -19,11 +19,11 @@ jobs:
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
         chmod 600 ~/.ssh/deploy_key
         echo "Host ec2-instance
-        HostName 2-18-234-87-107
+        HostName 18.234.87.107
         User ec2-user
         IdentityFile ~/.ssh/deploy_key
         StrictHostKeyChecking no" > ~/.ssh/config
 
     - name: Deploy to EC2
       run: |
-        rsync -avz --exclude '.git/*' --exclude 'node_modules/*' ./ ubuntu@ec2-18-234-87-107.compute-1.amazonaws.com:/var/www/madhav.ready2pay.in/cicd/
+        rsync -avz --exclude '.git/*' --exclude 'node_modules/*' ./ ec2-user@18.234.87.107:/var/www/madhav.ready2pay.in/cicd/
