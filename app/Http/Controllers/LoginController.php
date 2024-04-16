@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    //Yaaa hooo
+    //Rishav
     public function login(Request $request){
         $username = $request->username;
 
