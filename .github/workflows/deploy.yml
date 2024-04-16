@@ -23,3 +23,7 @@ jobs:
         User ec2-user
         IdentityFile ~/.ssh/deploy_key
         StrictHostKeyChecking no" > ~/.ssh/config
+
+    - name: Deploy to EC2
+      run: |
+        rsync -avz --exclude '.git/*' --exclude 'node_modules/*' ./ ec2-user@18.234.87.107:/var/www/madhav.ready2pay.in/cicd/
