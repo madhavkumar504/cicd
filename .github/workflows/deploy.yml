@@ -7,7 +7,7 @@ on:
     branches:
       - master
       
-# Authenticate to the the server via 
+# Authenticate to the the server vi
 # and run our deployment script
 jobs:
   deploy:
