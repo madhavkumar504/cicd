@@ -1,29 +1,24 @@
-name: Deploy to EC2
+name: Deploy
 
+# Trigger the workflow on push and 
+# pull request events on the production branch
 on:
   push:
     branches:
-      - master  # or your default branch
-
+      - master
+      
+# Authenticate to the the server via ssh 
+# and run our deployment script 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
-        chmod 600 ~/.ssh/deploy_key
-        echo "Host ec2-instance
-        HostName 18.234.87.107
-        User ec2-user
-        IdentityFile ~/.ssh/deploy_key
-        StrictHostKeyChecking no" > ~/.ssh/config
-
-    - name: Deploy to EC2
-      run: |
-        rsync -avz --exclude '.git/*' --exclude 'node_modules/*' ./ ec2-user@18.234.87.107:/var/www/madhav.ready2pay.in/cicd/
+      - uses: actions/checkout@v2
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.SSHKEY }}
+          script: "cd /var/www/html && ./.scripts/deploy.sh"
