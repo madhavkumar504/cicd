@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    //this is for testing fourth time ----
+    //this is for testing3
     public function login(Request $request){
         $username = $request->username;
 
