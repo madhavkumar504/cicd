@@ -8,7 +8,7 @@ on:
       - master
       
 # Authenticate to the the server via ss
-# and run our deployment script 
+# and run our deployment script
 jobs:
   deploy:
     runs-on: ubuntu-latest
