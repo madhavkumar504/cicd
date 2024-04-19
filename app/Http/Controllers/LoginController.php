@@ -22,7 +22,7 @@ class LoginController extends Controller
             "message" => "saved successfully!"
         ];
 
-        return response()->json(['status' => 200, $final]);
+        return response()->json(['status' => 200, "data" => $final]);
 
     }
 }
