@@ -9,12 +9,12 @@ class LoginController extends Controller
 {
     //This is for demo
     public function login(Request $request){
-        $username = $request->username;
+        $email = $request->email;
 
         $password = $request->password;
 
         $user = new User();
-        $user->username = $username;
+        $user->email = $email;
         $user->password = $password;
         $response = $user->save();
         $final = [
