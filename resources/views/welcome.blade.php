@@ -6,6 +6,6 @@
         <title>Laravel</title>
     </head>
     <body class="antialiased">
-        <h2>Hello DDDDDD !</h2>
+        <h2>Hello sanu How are you !</h2>
     </body>
 </html>
