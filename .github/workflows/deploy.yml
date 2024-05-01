@@ -1,17 +1,19 @@
 name: Deploy
 
+# Trigger the workflow on push and 
+# pull request events on the production branch
 on:
   push:
-    # This triggers the workflow on push to any branch
-  pull_request:
-    # Optional: triggers the workflow on pull requests to any branch
-
+    branches:
+      - master
+      
+# Authenticate to the the server vi
+# and run our deployment script
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -19,15 +21,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
-          script: "cd /var/www/yourproject && ./deploy.sh"
-
-      - name: Create Pull Request
-        if: github.ref != 'refs/heads/master'  # Only create PR if not on master
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: '${{ github.head_ref }}'  # Uses the current branch name
-          base: 'master'
-          title: 'Update from ${{ github.head_ref }}'
-          body: 'Please merge these updates.'
-          labels: 'automated-pr'
+          script: "cd /var/www/madhav.ready2pay.in/cicd && ./.scripts/deploy.sh"
